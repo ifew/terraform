@@ -3,7 +3,6 @@ resource "null_resource" "git_pull" {
     command = "git clone https://github.com/ifew/aws-lambda-function.git project_workspace"
   } 
     provisioner "local-exec" {
-    command = "cd project_workspace/test/aws-lambda-function.Tests && dotnet test"
-    interpreter = ["/bin/sh", "-c"]
+    command = "/bin/sh -c cd project_workspace/test/aws-lambda-function.Tests && dotnet test"
   } 
 }
