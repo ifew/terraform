@@ -1,0 +1,14 @@
+.vscode
+
+#dotnet
+bin
+obj
+
+#terraform
+.terraform
+.terraform.tfstate.lock.info
+*.tfstate
+*.tfstate.*
+
+#terraform test folder
+project_workspace
