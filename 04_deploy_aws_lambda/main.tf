@@ -19,7 +19,8 @@ resource "null_resource" "git_pull" {
   }
 
   provisioner "local-exec" {
-    command = "zip -r project_workspace/deployment.zip project_workspace/src/aws-lambda-function/bin/Release/netcoreapp2.1/publish"
+    command = "cd project_workspace/src/aws-lambda-function/bin/Release/netcoreapp2.1/publish && zip ../../../../../../deployment.zip *.*"
+    interpreter = ["/bin/sh", "-c"]
   }
 }
 
@@ -45,7 +46,7 @@ resource "aws_lambda_function" "lambda" {
   filename          = "project_workspace/deployment.zip"
   function_name     = "sample-function-deploy"
   role              = "${var.role}"
-  handler           = "MyFunction::MyFunction.Function::FunctionHandler"
+  handler           = "aws-lambda-function::aws_lambda_function.Function::FunctionHandler"
   runtime           = "dotnetcore2.1"
   memory_size       = 256
   timeout           = 60
